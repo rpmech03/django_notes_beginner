@@ -1,0 +1,6 @@
+jse he mne index.html m delete pr click kiya anchor tag ne use pass kr diya url pr wha views ka deletelanguage ka fun call kiya n views ka deletelanguage nam ko jo
+fun h uske andar kya code h...wha check kiya ki agr wha get type request h to wo hme delete.html pr phucha dega...n delete.html pr gye to wha se hmne id li jise 
+delete krna h..jse he delete pr click kiya to hm action pr jayege n wha blank h means same link pr jayega n post method call krai h to csrf token b dena hoga..n wapas
+whi same fun call hoga ie deletelanguage n is bar request method post h ..n wha request.method se hmne id ko delete kiya n language ke jo objects h usko filter kiya
+n jo id hmne di h n jo table ki id h agr wo dono match ho gai to wo use delete kr dega...n iske bad hm ise redirect kr dege home pr...is bar render ki jgh redirect
+ka use kiya h n usme jo slash h wo bta rha hki home page pr he jayega

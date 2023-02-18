@@ -1,0 +1,47 @@
+Class_11 :
+
+##CROSS-SITE REQUEST FORGERY[CSRF] :
+
+When we will transfer POST type request in django then django will produce an error  as we know POST METHOD used to transfer sensitive information to server
+ 
+and django will produce a warning to handle CSRF hackers attack and we will tell to server by using CSRF token, we are ready to handle CSRF server attack by using 
+
+following jinja code ----
+
+{% csrf_token %}
+
+###DJANGO ORM[OBJECT RELATIONAL MAPPING] :
+
+As we know python is a pure oop language it means there is no need to convert Object Oriented Python into RDBMS.Django automatically convert Object Oriented 
+
+python into RDBMS it means django will act as a ORM tool.
+
+class emp:
+       id(primary key)							table
+	name[models fields]			orm			id  name  email
+	email
+
+obj oriented model (PYTHON)                             django                   relational database model
+
+
+				
+
+
+				O-OBJECT
+
+				R-RELATIONAL
+
+				M-MAPPING
+
+##Note: is employee class ke corresponding table kaun bnayega ,wo bnayega django,class employee ke table m id lo ya mt lo django khud se he bna deta h yha id 
+
+primary key ke nam se, n iske bad name then email...name ka type string hona chahye ye database ko kaise pta lgega??...ans is that hme yha django m model ki fields
+
+use krni pdegi...hmne yha only class emp bnaya n hm chahte h ke iske correspoding ek table bn jaye automatically n wo bnayega django ka ORM ...ye jo class thi
+
+wo python ki h n python mtlb kya Obj Oriented model,so hm yha obj oriented model ka use kr rhe h..n database m ya table m jo columns bnaoge wo 3 hoge ie 
+
+id, name, email n yha pr jo model follow hota h wo hota h RDBM..wha pr tha OOM n yha pr h RDBM n in dono ke bich h django n django ksa act kr rha h...wo act kr rha h
+
+as  ORM tool.
+

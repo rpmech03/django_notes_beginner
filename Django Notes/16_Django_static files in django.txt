@@ -1,0 +1,27 @@
+CLASS_16_18 FEB 2022
+
+##STATIC FILES IN DJANGO:
+
+
+Static file is one of the most imp concept of django .Django treat all the css, javascript and other files as static files so we will put all the static files in 
+
+static folder and we will add following code in settings.py file of our project---
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'assests')]
+STATIC_ROOT = [os.path.join(BASE_DIR,'static')]
+
+
+##Now assests folder will create by django by using following cmd--
+
+python manage.py collectstatic
+
+then select "yes"
+
+Now in all the templates if you want to use static files then we will write load static on the top of the page and we will use following syntax for all static files--
+
+{% load static %}   ---use this at the top of html pages.
+
+##And will apply static on link like that---
+<link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif" />
+

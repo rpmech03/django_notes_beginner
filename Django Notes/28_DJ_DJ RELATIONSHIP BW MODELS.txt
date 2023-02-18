@@ -1,0 +1,35 @@
+##DJANGO RELATIONSHIP B/W MODELS:
+
+###ONE TO MANY OR MANY TO ONE RELATIONSHIP:
+
+If we want to implement '''one to many or many to one''' relationship in django then we will use """models.foreign key"""...Foreign key is constraint of model
+
+trainer=models.ForeignKey(Trainer,on_delete=models.CASCADE)
+
+ONDELETE KA USE ISLYE KR RHEH AGR HM TRAINER CLASS SE DELETE KRE TO STUDENT CLASS SE B DELETE HO JAYE...THIS IS CALLED CASCADING...N FOREIGN KEY M USE LEGE JISKI 
+PRIMARY KEY STUDENT CLASS M FOREIGN KEY BN GAI H....STUDENT KI TRF SE MANY TO 1 RELATIONSHIP H N TRAINER KI TRF SE 1 TO MANY H.
+
+
+
+DJANGO M 1 TO MANY SUPPORT NH HOTA H....MANY TO 1 WALE KO HE 1 TO MANY SUPPORT KRNA PDEGA....TO USKE LIYE HME MODELS.FOREIGN KEY USE KRNA PDEGA.
+
+
+class Trainer(models.Model):
+    name=models.CharField(max_length=20)
+    qualification=models.CharField(max_length=20)
+    languages=models.CharField(max_length=20)
+    def __str__(self) -> str:
+        return self.name
+class Student(models.Model):
+    sname=models.CharField(max_length=20)
+    branch=models.CharField(max_length=20)
+    year=models.CharField(max_length=20)
+    trainer=models.ForeignKey(Trainer,on_delete=models.CASCADE)
+    def __str__(self) -> str:
+        return self.sname
+
+
+
+
+
+

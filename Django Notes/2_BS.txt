@@ -1,0 +1,11 @@
+sm-small 
+md-medium---lappy,desktop
+lg-large
+xlg-extra large
+
+shortcut to get suggestions---ctrl+space
+
+app ka response proper ho jasta h---to use container
+
+two classes of container---1 container 2 container fluid
+

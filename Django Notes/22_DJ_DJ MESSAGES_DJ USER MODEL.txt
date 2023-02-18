@@ -1,0 +1,23 @@
+##DJANGO MESSAGES :
+
+Django provides a model messages through which we can transfer messages with response.We can import message object from django.contrib module
+
+(from django.contrib import messages)
+
+We can call messages.info or success or error methods to generate messages using django and each method contains 2 argument 1st is request and 2nd one is message.
+
+views.py----
+
+messages.info(request,"language deleted successfully")
+
+
+##DJANGO USER MODEL :
+
+Django provides a predefined model for user that contains following fields---
+
+id,password,last_login,is_superuser,username,first_name,last_name,email,is_staff,is_active,date_joined
+
+It means django defines all the functionality for the user including sessions,login,logout etc.
+One of the major drawback of django is we can deal with only those field which is already define there.
+
+""If we want to add some more field in user model then either we will use inheritance or we will use one to one mapping "".

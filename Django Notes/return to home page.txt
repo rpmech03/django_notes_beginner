@@ -1,0 +1,5 @@
+<div class="d-flex align-items-center"><a class="navbar-brand py-1" href="/">
+          <h3>MyBlog</h3>
+          </div>
+
+#jse yha m myblog pr click kruga to ye mjhe khi se b home page pr phucha dega..bs href pr forward slash add kr do

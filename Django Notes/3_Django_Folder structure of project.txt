@@ -1,0 +1,84 @@
+class_3
+
+Folder structure of django Project :
+
+1_manage.py : It is one of the most important file of our django project by which we can control all the operations like apply migrations, startserver,create superuser 
+              
+              and many more operations using this file.
+
+2_ _pycache_ : It contains basically all the bite codes(.pyc file) for all python classes like-
+
+ a) _init_cpython-37.pyc
+
+ b) settings.cpython-37.pyc
+
+ c) urls.cpython-37.pyc
+
+ d) wsgi.cpython-37.pyc
+
+Go to cmd then enter these all following commands below :
+
+md aa  (md-make directory)
+
+cd aa  (cd-change directory)
+
+notepad abc.py 
+
+and after that notepad will be opened then you have to write print("hello") or anything you want and now close the notepad thereafter you found that 
+
+there file has been created ie abc inside the folder aa.
+
+##python or jupyter notebook---
+
+import py_compile(this is a module)
+
+##py_compile.compile('abc.py') :   
+
+parenthesis m jo file bnai h uska name dena h n ise execute krne ke bad hme automatically pycache file mil jati hai n iske andar he hme mil jati hai 
+
+abc.cpython-37.pyc ,37 yha version hai ,.pyc ko he hm bite code bolte hai n ye bite code abc ka h n is bite code ko b hm open krke dekh skte h, do right click then 
+
+open with sublime text n see the bite code.
+
+pycache ke andar he compiled python file hai.
+
+'_pycache_\\abc.cpython-37.pyc'
+
+#To take exit type exit() in cmd.
+
+a)_init_.py : 
+
+It is mainly use for initial initialization.
+The __init__.py file indicates that the files in a folder are part of a Python package.
+Without an __init__.py file, you cannot import files from another directory in a Python project.
+
+b) settings.py : 
+
+It is one of the most important file of django project in which we will configure all settings like templates settings,static file settings,database settings,post 
+
+settings, media settings etc.
+
+c) urls.py : 
+
+It contains all urls of application,It is a route file of our django project. From django we will start project execution,inside this urls.py we also configure 
+
+all application  urls.
+
+d) wsgi.py : Web Server Gateway Interface
+
+It is mainly used for 'server set configuration(ssc)' for our django project.
+
+The Web Server Gateway Interface is a simple calling convention for web servers to forward requests to web applications or frameworks written in the Python 
+
+programming language. The current version of WSGI, version 1.0.1, is specified in Python Enhancement Proposal 3333.
+
+#Apps : 
+
+A django app is a part of our django project or we can say that a django project is collection of app in which each and every app will perform module of (yha likhna h
+thoda sa ...must write from video)
+
+##we can create app by following command   :   
+
+python manage.py startapp home.    (home is a name of app,you can use any name)
+
+#Folder structure of app : 

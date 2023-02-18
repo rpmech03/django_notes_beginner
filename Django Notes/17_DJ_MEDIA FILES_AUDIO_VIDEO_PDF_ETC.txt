@@ -1,0 +1,24 @@
+CLASS_17_21FEB
+
+##MEDIA FILES IN DJANGO :
+
+All the files like image, audio, videos, pdf etc should be considered as media files in django and if we want to use media files in our django project then we will do
+
+or we will write following changes in settings.py file of our project--
+
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+and we will write following code in urls.py file of our project--
+
+from django.contrib import admin
+from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('home.urls'))
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

@@ -1,0 +1,9 @@
+###Django Cookie :
+
+A cookie is a small piece of information which is stored in the client browser. It is used to store user's data in a file permanently (or for the specified time).
+
+Cookie has its expiry date and time and removes automatically when gets expire. Django provides built-in methods to set and fetch cookie.
+
+The set_cookie() method is used to set a cookie and get() method is used to get the cookie.
+
+The request.COOKIES['key'] array can also be used to get cookie values.

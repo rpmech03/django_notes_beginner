@@ -1,0 +1,27 @@
+##Class_8
+
+##JINJA Format : 
+
+Jinja format and jinja 2 format is mainly used to display dynamic content from views to templates.
+               
+we will use following syntax for jinja ie {{data}}.
+
+##Class_9
+
+##BLOCK CONTENT AND END BLOCK :
+
+Jinja format is a very common and useful jinja format of django through which we will easily design a django application.We will put all the designing content within 
+
+the html page and we will surround a place where we want to print content of another html page with block content and end block.
+
+{%block content%}
+
+{%endblock%}
+
+If we want to send content of one html page to another designing html page then we will extend using jinja design.html page. 
+
+
+##Class_10
+
+form m jitni field hogi n field m jitne name hoge utne parameter hoge.
+yha do parameter h n1 and n2..

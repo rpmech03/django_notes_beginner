@@ -1,0 +1,37 @@
+class_5_django
+
+##3rd step:Django Responses- 
+                          
+In url we will call function of views that receieve request and generate response.
+(URL OF APP, ISME YE CALL KREGA FUN KO JO VIEWS.PY M BNA H N WO FUN REQUEST KO RECEIVE KREGA N RESPONSE RETURN KR DEGA TEMPLATE KO)
+
+In django we will generate two types of responses---
+
+1_HttpResponse :
+
+We will import HttpResponse from django.http model and htttpresponse function contains data either in text or html format.
+
+###NOTE: 
+
+Download extensions like HTML snippets,HTML CSS Support,IntelliSense for css and Django baptise,django roberth,django template,django snippets and auto import,
+auto close tag.
+
+2_RESPONSE BY RENDER METHOD : 
+
+We can generate response by using render method according to request but render is a overloaded method in django that contains either two or three arguments .
+
+##RENDER WITH TWO ARGUMENTS: 
+
+When we will pass two argument in render function then first argument always should be a "request" and 2nd argument is a "html page".
+
+##RENDER WITH THREE ARGUMENTS : 
+
+When we will pass three argument in render function then 1st argument always should be a request , 2nd argument always should be html page 
+
+and 3rd argument is a dictionary in which we will pass dynamic data.
+
+If you want to use render method in views then we will enabale DTL[django template language]. If you want to enable DTL and apply settings of DTL then we will perform 
+
+following operations in settings.py file of our project.In settings.py file under templates we will define DIRS, we will define folder for DTL.  
+
+'DIRS': [os.path.join(BASE_DIR,'templates')],

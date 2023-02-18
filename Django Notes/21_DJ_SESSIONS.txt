@@ -1,0 +1,18 @@
+##SESSIONS IN DJANGO :
+
+As we know http is a stateless protocol,it doesn't maintain state b/w client and server.If we want to maintain state b/w client and server we will use sessions.We
+will use following techniques of sessions in django--
+
+1_URL RE- WRITING:
+
+It is a very useful and most common technique of session through which we can manually transfer values of parameteres in url.
+
+url rewriting---
+
+<td><a href="deldata?lname={{i.lname}}">delete</a></td>
+
+2_HIDDEN FORM FIELD :
+
+If we want to transfer some data hiddenly at the time to submit a form then we will transfer that data by using hidden form field technique of sessions.We will use 
+
+input type hidden implement hidden form field technique of django. 

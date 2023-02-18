@@ -1,0 +1,14 @@
+
+NOTE:
+
+index.html m...mne jse he signup pr click kiya..signup url gya...n ab views ka signup fun call hoga...agr yha get type request h to signup.html pt jayega ...n wha se
+hmne uname,fname,lname,email,pwd,rpwd liya...n yha jse he m sign up button pr click kruga to ye submit ho jayega...n again signup.html pr jayega n wha se post method call
+hogi then again uname,fname,lname,email,pwd,rpwd...ye sb read hoga..
+
+###USER MODEL LOCATION :
+
+from django.contrib.auth.models import User
+
+##TO CREATE USER WRITE IN VIEWS.PY----
+
+User.objects.create_user()

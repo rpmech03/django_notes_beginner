@@ -1,0 +1,31 @@
+class_2_Django
+
+Django is python webframework which is mainly used to create dynamic web applications supported by server.Django uses concept of MVT(model view and templates)
+
+Which is mainly used to create secure, fast and robust application.Django internally supports concept of ORM[Object Relational Mapping],it means with the help of
+
+django we can easily convert Object Oriented Python into RDBMS[relational Database mgmt system]
+
+so we will create classes and objects in python and django will create tables corresponding to classes and objects.Django is a external pip(package installer in python)
+in python.
+
+We can install django by following command - pip install django
+
+We can find out django installed or not,we can check django version with the help of following command : 
+ 
+django-admin --version
+
+We can create a django project by -
+
+django-admin startproject first ,first is a project name
+
+project- cd first ,to enter the project(cd-change directory)
+
+we can run a django project with the help of following command -
+
+python manage.py runserver
+
+manage.py can control whole project.
+
+NOTE: To break the runserver use ctrl+c ....to get back use cd..
+

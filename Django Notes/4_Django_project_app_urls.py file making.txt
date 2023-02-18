@@ -1,0 +1,77 @@
+
+class_4
+
+##FOLDER STRUCTURE OF APP : 
+
+##migrations : 
+
+migrations folder contains all the migration files for our database.
+
+##Django Database Migrations:
+
+Migration is a way of applying changes that we have made to a model, into the database schema. Django creates a migration file inside the migration folder for 
+
+each model to create the table schema, and each table is mapped to the model of which migration is created.
+
+Django provides the various commands that are used to perform migration related tasks. After creating a model, we can use these commands.
+
+makemigrations : It is used to create a migration file that contains code for the tabled schema of a model.
+
+migrate : It creates table according to the schema defined in the migration file.
+
+sqlmigrate : It is used to show a raw SQL query of the applied migration.
+
+showmigrations : It lists out all the migrations and their status.
+
+##admin.py : 
+
+It is mainly use to register all model classes for admin stuff.
+
+##apps.py : 
+
+It contains all configuration for app.
+
+#***models.py : 
+
+It contains all model classes by which we will create tables by using django ORM.[obj relational mapping]
+
+##tests.py : 
+
+It's mainly use for testing an individual app.
+
+##views.py : 
+
+This file act as a controller for django project by which we will receive all the request from templates and generate all the rersponses to templates.
+
+##PROJECT FLOW FOR DJANGO APPLICATION :
+
+Django will start project execution from urls.py file of project,from urls.py file of project we will call urls of applications.
+
+##first/urls.py =
+
+from django.contrib import admin 
+from django.urls import path,include                                   
+                                     
+url patterns =  [path('admin/', admin.site.urls),                      
+                 path('', include('home.urls')),]   
+
+(jb blank url file mile to kis url file ke pas pahuchaoge , app ki url file ke pas,to iske liye hm include() fun ko call krege n usme hm include krege app ie home 
+
+ki url ko n likhege home.urls taki use call kr ske.home h app n uske andar h url file n isse he hm app ki url file ko call krege.
+
+##home/urls.py(create this file inside the app):
+
+from . import views                                 
+from django.urls import path
+urlpatterns = [ path('', views.home,name="home"),]
+
+(dot mtlb parent directory n parent directory means home yha se import krege views ko n this is module)   
+
+(ab yha urls.py file m path ke andar views ko import krana pdega, views file m hme home or app fun ko call krna hoga n url pr jb wo call ho to uska name display hona 
+
+chahye home.)
+
+Note: manage.py neither inside the project nor app, its found outside of the both.
+      project ke urls.py se app ke urls.py ko call krna pdega but urls.py app m hoti nh h so use wha create krna pdega n urls.py file ka nam hm kch b rkh skte h 
+      but kch standard follow krna hota h islye hm iska nam urls.py he rkhege.
+

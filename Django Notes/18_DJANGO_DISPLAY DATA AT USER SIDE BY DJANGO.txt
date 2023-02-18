@@ -1,0 +1,78 @@
+ ##DISPLAY DATA AT USER SIDE BY DJANGO:
+
+
+##views.py file---
+
+from django.shortcuts import render
+from . models import students
+def home(request):
+    st=Students.objects.all()                      
+    return render(request,'index.html',{'data':st})  
+
+
+
+##NOTE : students model ke jitne b objects h means table ki rows use database se fetch krega n use st m rkh dega...n is st ko m index.html m send kr duga 
+n ab is index.html pr students ki all info show krwani h.
+#first st ka name kch b rkh skte h hmne data rkh diya.
+
+##models.py file---
+
+class Students(models.Model):
+    roll=models.CharField(max_length=20)
+    name=models.CharField(max_length=50)
+    dob=models.DateField(auto_now=False)
+    ch=(
+        ('male','male'),
+        ('female','female'),
+        ('other','other')
+    )
+    gen=models.CharField(max_length=11,choices=ch)
+    fees=models.IntegerField()
+    about=models.TextField()
+    img=models.ImageField(upload_to='pics')
+    def __str__(self) -> str:
+        return self.name
+
+
+##admin.py file---
+
+from django.contrib import admin
+from .models import Student, Students,Language, Trainer
+# Register your models here.
+admin.site.register(Students)
+admin.site.register(Language)
+admin.site.register(Student)
+admin.site.register(Trainer)
+
+##urls.py file of app---
+
+from django.urls import path,include
+from . import views
+urlpatterns = [
+    path("",views.home,name="home"),
+    path("addlanguage",views.addlanguage,name="addlanguage"),
+    path("deletelanguage",views.deletelanguage,name="deletelanguage"),
+    path("deldata",views.deldata,name="deldata"),
+    path("updatelang",views.updatelang,name="updatelang"),
+    path("search",views.search,name="search"),
+    path("signup",views.signup,name="signup"),
+    path("login",views.login,name="login"),
+    path("logout",views.logout,name="logout"),
+    path("addemp",views.addemp,name="addemp"),
+    path("showemp",views.showemp,name="showemp"),
+    path("addtrainer",views.addtrainer,name="addtrainer"),
+    path("addstudent",views.addstudent,name="addstudent"),
+    path("showstudent",views.showstudent,name="showstudent"),
+    path("deletestudent",views.deletestudent,name="deletestudent"),
+    path("updatestudent",views.updatestudent,name="updatestudent"),
+]
+
+
+
+
+
+
+
+##ASSIGNMENT :
+
+language nam ka model bnana h usme language ka nam,trainer ka nam,fees,language ka icon,language id.

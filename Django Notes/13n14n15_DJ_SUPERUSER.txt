@@ -1,0 +1,83 @@
+class_13
+
+Django admin :
+
+Django admin provide inbuilt admin and we can also create admin user in django with the help of following command---
+
+python manage.py createsuperuser
+
+then python manage.py runserver
+
+
+Username: rpmech
+Email address: rpmech92@gmail.com
+Password:
+Password (again):
+Superuser created successfully.
+
+
+##MODELS :
+
+Models are classes which is created inside models.py file .We can create the model class by inherit our class by model class of model's module and inside the 
+
+model class we will define all models field through which we will construct tables with the help of django ORM.Django will always create a primary KEY for each
+
+table whose name is id.
+
+class Emp(models.Model):                       
+    name=models.CharField(max_length=20)
+    email=models.EmailField(max_length=40)
+    sal=models.IntegerField()
+
+//CLASS EMP KO AGR MODEL BANANA H TO USE MODELS M SE CLASS MODEL KO INHERIT KREGA
+
+If you want to "register our app" for migrations then we will configure our app in "installed apps of settings.py file".
+
+python manage.py makemigrations
+python manage.py migrate 
+
+DATE:17/02/2022(class-15)
+
+##Register model with admin site:
+
+if you want to register our model with admin site then we will write following code in admin.py file of our app.  
+
+from django.contrib import admin
+
+from .models import product,price
+admin.site.register(product)
+admin.site.register(price)
+
+###other ways to register models----
+
+from django.contrib import admin
+from django.utils.html import format_html
+from django.urls import reverse
+from .models import (
+ Customer,
+ Product,
+ Cart,
+ OrderPlaced
+)
+
+@admin.register(Customer)
+class CustomerModelAdmin(admin.ModelAdmin):
+ list_display = ['id', 'user', 'name', 'locality', 'city', 'zipcode', 'state']
+
+
+
+class Students(models.Model):
+    roll=models.CharField(max_length=20)
+    name=models.CharField(max_length=50)
+    dob=models.DateField(auto_now=False)
+    ch=(
+        ('male','male'),   //OPTION M MALE DIKHE N VALUE M B MALE JAYE
+        ('female','female'),
+        ('other','other')
+    )
+    gen=models.CharField(max_length=11,choices=ch)
+    fees=models.IntegerField()
+    about=models.TextField()
+    img=models.ImageField(upload_to='pics')
+    def __str__(self) -> str:
+        return self.name

@@ -1,0 +1,14 @@
+class_6n7
+
+
+Inside the template folder we store all
+
+
+##after making templates we will write this coding inside views.py of home app-
+
+
+return render(request,"index.html")
+
+##dynamic data transfer using render method---
+
+return render(request,"index.html",{'name':'})

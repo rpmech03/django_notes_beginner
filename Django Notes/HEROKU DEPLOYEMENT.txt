@@ -1,0 +1,78 @@
+###GIT DEPLOYEMENT:
+
+pip freeze > requirements.txt  (by this cmd we get requirements.txt)
+
+pip freeze > res.txt  (by this cmd we get res.txt,if required)
+
+we are getting this data in requirements.txt,here we get other data in requirements.txt which will take more time to deploy so we have to remove that one and use 
+whatever given by sir....
+
+asgiref==3.2.10
+boto3==1.16.17
+botocore==1.19.17
+dj-database-url==0.5.0
+Django==3.0
+django-storages==1.10.1
+gunicorn==20.0.4
+jmespath==0.10.0
+mysqlclient==2.0.1
+Pillow==7.2.0
+psycopg2==2.8.6
+python-dateutil==2.8.1
+pytz==2020.1
+s3transfer==0.3.3
+six==1.15.0
+sqlparse==0.3.1
+urllib3==1.26.2
+whitenoise==5.2.0
+
+
+###after that run cmd  pip install gunicorn if it is not installed----pip install gunicorn
+
+Gunicorn takes care of everything which happens in-between the web server and your web application. This way, when coding up your a Django 
+application you don't need to find your own solutions for: communicating with multiple web servers. reacting to lots of web requests at once and distributing the load.
+
+###after that----pip install whitenoise
+
+With a couple of lines of config WhiteNoise allows your web app to serve its own static files, making it a self-contained unit 
+that can be deployed anywhere without relying on nginx, Amazon S3 or any other external service. (Especially useful on Heroku, OpenShift and other PaaS providers.)
+
+###settings.py---
+
+ALLOWED_HOSTS = ['*']
+
+'whitenoise.middleware.WhiteNoiseMiddleware',  -------use just below middlewaresecurity
+
+Thereafter we will make Procfile inside the folder of project---
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
+web:gunicorn project_name.wsgi--log-file-
+
+###thereafter we will open heroku and create app there,then run cmds which is given there----
+
+Install the Heroku CLI
+Download and install the Heroku CLI.
+
+If you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key.
+
+$ heroku login
+Create a new Git repository
+Initialize a git repository in a new or existing directory
+
+$ cd my-project/
+$ git init
+$ heroku git:remote -a rapippi
+Deploy your application
+Commit your code to the repository and deploy it to Heroku using Git.
+
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
+
+You can now change your main deploy branch from "master" to "main" for both manual and automatic deploys, please follow the instructions here.
+Existing Git repository
+For existing repositories, simply add the heroku remote
+
+$ heroku git:remote -a rapippi

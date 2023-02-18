@@ -1,0 +1,97 @@
+What is __init__.py? 
+
+The __init__.py file indicates that the files in a folder are part of a Python package. Without an __init__.py file, you cannot import files from another directory 
+in a Python project.
+
+How to Use the Python __init__.py File
+While taking a look at sample Python projects, you may have seen this file, __init__.py. You may have wondered what it was, why it’s there if it’s empty, and how it 
+works. This post will answer all of those questions!
+
+Here is an example file structure that includes __init__.py:
+
+main_package/
+    __init__.py
+    file1.py
+    file2.py
+    file3.py
+main.py
+The main folder is our Python directory that we want to treat as if it were a Python package. To be treated as such, we have to include an __init__.py file that 
+relays this information to the Python interpreter.
+
+The rest of the files are just Python files that each have different information in it that we might want to use elsewhere. This could be a Class, a function, etc.
+
+The main.py is where we are going to call for the functions that we have stored in main_package. You’ll see how this works in a minute, but first let’s take a look at 
+the __init__.py file.
+
+What is __init__.py?
+The __init__.py file lets the Python interpreter know that a directory contains code for a Python module. An __init__.py file can be blank. Without one, you cannot 
+import modules from another folder into your project.
+
+The role of the __init__.py file is similar to the __init__ function in a Python class. The file essentially the constructor of your package or directory without it 
+being called such. It sets up how packages or functions will be imported into your other files.
+
+» MORE:  Python TypeError: ‘type’ object is not subscriptable Solution
+In its simplest case, the __init__.py file is an empty file. However, it is also used to set up imports, so they can be accessed elsewhere. There are three main ways 
+to do that:
+
+1. main_package/__init__.py and explicit imports:
+from .file1 import file_1 # Where file_1 is the name of the function and .file1 is the name of the module/file
+from .file2 import file_2
+from .file3 import file_3
+We use relative imports to import each of the files into __init__.py. Inside these files are functions that are unique to each file.
+
+In main.py, we can now access these functions by creating an import statement at the top of the file using explicit import statements:
+
+from main_package import file_1, file_2, file_3 # This imports only what you need
+ 
+file_1() # This is my file 1!
+file_2() # And this is file 2!
+file_3() # Finally, here is file 3!
+This tells us exactly which modules we are using out of main_package.
+
+2.main_package/__init__.py and standard import:
+import main_package # This imports the entire package
+main_package.file_1() # This is my file 1!
+main_package.file_2() # And this is file 2!
+main_package.file_3() # Finally, here is file 3!
+The only difference between this one and the previous one is that the former imports only what we need (file_1, file_2, file_3). The other imports the module – so we use dot notation to access the function names.
+
+3. main_package/__init__.py and wild card import:
+In __init__.py, set an __all__ variable to a list of the modules/files in the package. This will help the interpreter figure out what’s to be considered when we use the wild card import statement in the main.py. Take notice that the all variable is surrounded by two underscores on either side.
+
+__all__ = ["file1", "file2", "file3"]
+In main.py we’ll use a generic import statement and use dot notation to access the function:
+
+[fasttrack_express_form]
+from main_package import *
+file1.file_1() #This is my file 1!
+file2.file_2() #And this is file 2!
+file3.file_3() #Finally, here is file 3!
+The all variable serves to tell the wild card, *, which modules/files are to be included in that import. When we read from main_package import *, we should actually see it as from main_package import file1, file2, file3. Then we use dot notation to access the function name, as you can see above.
+
+» MORE:  Python Return: A Step-By-Step Guide
+Importing Files Without an __init__.py File
+If you want to import a file from another directory, that directory must contain a Python __init__.py file. Consider this example:
+
+from cakes import create
+This statement imports a module called “create” from the “cakes” folder. Our cakes folder would need to have these two files for our code to work:
+
+cakes/create.py
+cakes/__init__.py
+The first file is our module. The second file tells Python that our directory contains Python modules. We could also import our code like this:
+
+import cakes.create
+We could not use either of these import statements without an __init__.py file present.
+
+To learn more about importing modules, check out our Python import statement guide.
+
+Conclusion
+That’s the __init__.py file in Python! How you use it in your project is very much up to how you would like to use imports.
+
+Including an __init__.py file as part of your setup does make your code to be more Pythonic. This is because the structure of your code is clearer. Writing more Pythonic code is a big goal among software developers.
+
+Here’s a repl with the Python code from this article. Use it to help visualize how the structure works and experiment with your own code!
+
+For advice on top Python courses and online resources, check out our complete How to Learn Python guide.
+
+3 Ratings

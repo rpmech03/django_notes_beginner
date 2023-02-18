@@ -1,0 +1,120 @@
+###this is first step---
+
+###settings.py---use at the bottom.
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER ='json'
+CELERY_TASK_SERIALIZER ='json'
+
+
+###2nd_step:
+
+###celery.py---ye celery doc se copy kiya h
+
+from celery import Celery
+import os
+# Set the default Django settings module for the 'celery' program.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celery_example.settings')
+
+app = Celery('celery_example')
+
+# Using a string here means the worker doesn't have to serialize
+# the configuration object to child processes.
+# - namespace='CELERY' means all celery-related configuration keys
+#   should have a `CELERY_` prefix.
+app.config_from_object('django.conf:settings', namespace='CELERY')
+
+# Load task modules from all registered Django apps.
+app.autodiscover_tasks()
+
+
+@app.task(bind=True)
+def debug_task(self):
+    print(f'Request: {self.request!r}')
+
+
+
+###3rd_step:
+
+###task.py----#ye phle perform krke dekha tha when i didnt use send_mail,uske liye mne shared_task n sleep ko import kra tha
+
+from celery import shared_task
+from time import sleep
+
+from django.core.mail import send_mail
+
+@shared_task
+def sleepy(duration):
+    sleep(duration)
+    return None
+
+@shared_task
+def send_mail_task():
+    send_mail('CELERY WORKED YEAH', "CELERY IS COOL",
+                "ravindramechanical03@gmail.com",
+                ['ravindrasde03@gmail.com'],
+                fail_silently=False
+                )
+    print('MAIL FROM CELERY')
+    return None
+
+#fail_silently---A boolean. If it’s False, send_mail will raise an smtplib.SMTPException.
+
+
+
+###helper.py---it is for send mail...isme jo fun bnaya h wo w/o celery ke mail send krega....smjhane ke liye h
+
+from django.core.mail import send_mail
+
+def send_mail_without_celery(request):
+    send_mail('CELERY WORKED YEAH', "CELERY IS COOL",
+                "ravindramechanical03@gmail.com",
+                ['ravindrasde03@gmail.com'],
+                fail_silently=False
+                )
+    return None
+
+
+###views.py---
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from .task import *
+
+from .helper import *
+
+
+# def index(request):
+#     # sleepy(10)
+#     sleepy.delay(10)
+#     # return HttpResponse("<h1>Hello, </h1>")   #ye jb use kiya jb celery use nh ki
+#     return HttpResponse("<h1>Hello, from CELERY</h1>")  #ye with celery 
+
+def index(request):
+    # send_mail_without_celery()
+    send_mail_task.delay()
+    return HttpResponse("<h1>Hello, from CELERY</h1>")
+
+
+
+###for mail---
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ravindramechanical03@gmail.com'
+EMAIL_HOST_PASSWORD = 'Rr031092'
+
+###to run celery server---
+
+pip install eventlet
+celery -A <module> worker -l info -P eventlet
+
+module--project name
+
+#pip install celery
+
+

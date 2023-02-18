@@ -1,0 +1,110 @@
+abhi tk jo hmne operation performm kiye sb admin side se ho rhe the...ab jo jo b hoge user ki trf se hoge..ab add,update,show krne ka kam user krega ab...
+abhi hm admin side se img lga skte h but user side se nh now hm ""user side se lgana start krege jiske liye hm model form sikhna pdega""....
+now m taking model name language...ab m user side se 3rd operation chalauga..so mne ek class le liya ie language n "language nam ki class ne accumulate kiya h models 
+m se model ko"...by defalult isme language ka id ayega..language m property h..
+
+class Language(models.Model):
+    lname=models.CharField(max_length=20)
+    fees=models.IntegerField()
+    duration=models.CharField(max_length=15)
+    trainer=models.CharField(max_length=20)
+    def __str__(self) -> str:
+        return self.lname+" "+self.trainer  
+
+models m jb b change krege tb hme makemigrations cmd run krani hogi then migrate wali then runserver...
+
+python manage.py makemigrations
+python manage.py migrate 
+python manage.py runserver  
+
+
+in sare operations ko admin side se krao ya user side se no matter cz we have to perform this operation by user side...ab hme admin.py m new class ko add krna pdega
+jo ki models.py file m h ie language...admin.py m phle se he students class added h but hm language ko comma lga kr add kr dege n use define b kr dege wha like..
+
+from django.contrib import admin
+from .models import Students,Language
+
+admin.site.register(Students)
+admin.site.register(Language)
+
+ab ye sari info user se add krayege by get or post method...abhi pgadmin m languages m koi object nh but hme ise add krana h by user side..
+
+
+
+addlanguage.html m ab hm sari info user se lenge...abyha do option ate h ya ek new url lu ya same url ko b use kr skta hu..so add krege...
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        lname<input type="text" name="lname" /><br>
+        fees<input type="number" name="fees" /><br>
+        duration<input type="text" name="duration" /><br>
+        trainer<input type="text" name="trainer" /><br>
+        <input type="submit" value="Add Language" /><br>
+    </form>
+
+</body>
+</html>
+
+
+###urls.py file of app____
+path("addlanguage",views.addlanguage,name="addlanguage"),
+
+###views.py file of app___
+def addlanguage(request):
+    if request.method=='POST':   //request ki method post hui to condition h
+        l=Language()
+        l.lname=request.POST['lname']
+        f=request.POST['fees']
+        f=int(f)
+        l.fees=f
+        l.duration=request.POST['duration']
+        l.trainer=request.POST['trainer']
+        l.save()
+        messages.success(request,"language added sucessfully")
+        return render(request,'addlanguage.html')
+    else:
+        return render(request,'addlanguage.html')
+
+is bar method get nh post method ka use krege..
+
+aj kya kiya...jse he user index.html m addlanguage pr to url m addlanguage jayega abkha jayege urls.py m jayege n wha addlanguage milega..nn wha views ka 
+addlanguage namka fun call krwayege..to views ke andar jo addlan namka fun h uske pas request ayegi n wo render kr dega addlanguage.html pe...n ab wo us html
+page pr jayega to wha use ek form milega...n form ke action m  hm same url call kra rhe h kaunsa?...addlanguage...addlan m jb get type ki request janen pr 
+html dikha rhi thi n post m html nh dikhana h...ab m page ko refresh kruga then jse he mne "submit pe click" kiya to "url ke addlanguage" ke corresponding wo kaunse wale
+fun ko call kr dega addlan wale fun ko...n addlan ke fun pr jo request jayegi by default wha get ka use krege..n yha ek form open ho jayega n wha hme info deni h
+...pr jse he ab m yha submit pr click kruga to ab jo m request tranfer kruga wo post type hogi.....overall can say..request method agr post ho to if m rkh denge n
+get ho to else m rkh denge or request ko addlanguage.html pr phucha denge...
+
+ek he fun se server pr data transfer krna ho to post ka use kr lo otherwise use first get then use post cz post used for sending secured data....
+""request method post hui to hme data read krna"" h n wo krege like that....""request.POST['lname']""...is language ke name ko store krne se phle apko import krna h 
+language ko n uske bad apko uska object bnana h,jha def kr rhe h wha...""ab uske bad hm request.POST ko store kr denge l.lname m""..n ab one by one sbko read kr lenge 
+like
+fees,duration,trainer n usko save kr denge n in sbko return kr denge render method se addlanguage.html ko...
+
+summarise...import kra liya language class ko n uska object bna diya(l=language()) n uski properties ko read krne ke liye request.POST method ka use kiya n 
+insbko store kr diya short name dekr like..l.name=request.POST['lname']...n ab in sbko save kr denge l.save() ko call krke n finally insbko return kr denge
+addlanguage.html pr...
+
+
+overall summary:
+
+sbse phle mne index.html pr Add language pr click kiya then anchor tag m href m kya gya ie addlanguage,ab iski urls mapping krwayeg...n wha views ka addlanguage fun
+call hoga...then views.py file m jo request arhi thi usme phle directly request arhi thi to wo get method thi n wo ja rha tha addlanguage.html pr n wha se hmne liya
+language ka name,fees,duration,trainer..n yha pr action m blank diya h mtlb ye same url pr jayega n request method post h..n ab yha se jayega views.py m,wha pr hm
+language name ki class ko import krwa lenge then uska objective bnakr uski properties ko read krege by request.POST[''] METHOD se n store krwa denge koi b short 
+name dekr like l.name=request.POST['lname'] n ab in sbko l.save() method se save kr denge n insbko return kr denge addlanguage.html pr by render method...like
+return render(request,'addlanguage.html')...n ab user side se add kr skte ho ...but yha hme csrf verification krna hoga cz post method call kr rhe h.
+
+
+Assignment:
+
+ek emp ka id,name,mobile,add ye sari chize user se data lekr add krni h. 
+
+

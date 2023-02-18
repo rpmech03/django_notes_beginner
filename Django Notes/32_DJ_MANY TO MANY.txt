@@ -1,0 +1,50 @@
+###MANY TO MANY RELATIONSHIP:
+
+In many to many relationship, django internally creates 3 tables .Django's 2 tables will create according to models and one table create django according to join data
+
+
+
+class Vendor(models.Model):
+    vname=models.CharField(max_length=20)
+    vaddress=models.CharField(max_length=40)
+    def __str__(self) -> str:
+        return self.vname+" "+self.vaddress
+class Customer(models.Model):
+    cname=models.CharField(max_length=20)
+    caddress=models.CharField(max_length=40)
+    vendors=models.ManyToManyField(Vendor)
+    def __str__(self) -> str:
+        return self.cname+" "+self.caddress
+
+
+
+###ONE TO ONE RELATIONSHIP:
+
+class Ceo(models.Model):
+    name=models.CharField(max_length=20)
+    email=models.CharField(max_length=30)
+    def __str__(self):
+        return self.name
+class Address(models.Model):
+    ceo=models.OneToOneField(Ceo,on_delete=models.CASCADE,primary_key=True)
+    street=models.CharField(max_length=20)
+    city=models.CharField(max_length=30)
+    state=models.CharField(max_length=10)
+    def __str__(self):
+        return self.street+" "+self.city
+
+###ONE TO MANY OR MANY TO ONE RELATIONSHIP:
+
+class Trainer(models.Model):
+    name=models.CharField(max_length=20)
+    qualification=models.CharField(max_length=20)
+    languages=models.CharField(max_length=20)
+    def __str__(self) -> str:
+        return self.name
+class Student(models.Model):
+    sname=models.CharField(max_length=20)
+    branch=models.CharField(max_length=20)
+    year=models.CharField(max_length=20)
+    trainer=models.ForeignKey(Trainer,on_delete=models.CASCADE)
+    def __str__(self) -> str:
+        return self.sname
