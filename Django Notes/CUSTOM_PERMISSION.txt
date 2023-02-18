@@ -1,0 +1,62 @@
+#CUSTOM PERMISSION :
+
+###PERMISSION.PY :
+
+from rest_framework import permissions
+
+class IsPetOwnerPermission(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        print(request.user) #isse pta chl jayega kaunsa user h
+        return True
+
+    def has_object_permission(self, request, view, obj):#is perticular user ke pas object h ya nh,isse ye check krege
+        return obj.animal_owner == request.user
+
+###VIEWS.PY :
+
+from .permission import IsPetOwnerPermission
+
+class AnimalCreateAPI(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated,IsPetOwnerPermission]
+
+    def get(self, request):#IS PERTICULAR USER NE JO PETS CREATE KIYE HOGE WO MIL JAYEGE
+        queryset =Animal.objects.filter(animal_owner = request.user)
+        
+
+        if request.GET.get('search'):
+            search = request.GET.get('search')
+            queryset = queryset.filter(
+                Q(name__icontains = search) |
+                Q(animal_description__icontains = search) |
+                Q(animal_gender__iexact = search) |
+                Q(animal_breed__animal_breed__icontains = search) |
+                Q(animal_color__animal_color__icontains = search) 
+            )
+
+        serializer = AnimalSerializer(queryset, many =True)
+       
+
+        return Response({
+            'status' : True,
+            'message' : 'animals fetched with GET',
+            'data': serializer.data
+        })
+
+###URLS.PY:
+
+path('createAnimal/', AnimalCreateAPI.as_view()),
+
+###ISKE BAD POSTMAN M JAKR URL KO RUN KRWAYEGE---http://127.0.0.1:8000/api/createAnimal
+
+###YHA APKO TOKEN AUTHORIZE KRWANA PDEGA---
+
+Authorization : Token 826374763jhdsbgfjge08902hk
+
+
+
+###ye patch m likhege---- 
+
+animal_obj = animal_obj[0]
+self.check_object_permissions(request, animal_obj)

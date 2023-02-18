@@ -1,0 +1,92 @@
+how to make branches in github?
+
+1_git branch
+
+you will get *main in green colour 
+
+2_ git branch branch_name
+
+3_ git checkout branch_name
+
+will display this message--Switched to branch 'webscraping'
+
+4_ git branch --to check which branch present in branch after creating branch
+
+  main
+* webscraping   (will display this msg)
+
+5_ after that we add all data by following commands--
+
+git add *
+git commit -m "add new branch"
+
+On branch webscraping
+nothing to commit, working tree clean (will display this msg)
+
+6_
+
+C:\dj3.30\webscraping_fetch_medicines>git push
+
+#will display this msg---
+
+fatal: The current branch webscraping has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin webscraping
+
+
+7_
+
+C:\dj3.30\webscraping_fetch_medicines>git push
+fatal: The current branch webscraping has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin webscraping
+
+
+C:\dj3.30\webscraping_fetch_medicines>git push origin webscraping
+
+#will display this msg---if above we are getting problem then run this cmd.
+
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: 
+remote: Create a pull request for 'webscraping' on GitHub by visiting:
+remote:      https://github.com/rpmech03/webscraping_fetch_medicines/pull/new/webscraping
+remote:
+To github.com:rpmech03/webscraping_fetch_medicines.git
+ * [new branch]      webscraping -> webscraping
+
+#finally we get the branch here.
+
+#if i want to add other people in my project so that they can also push their work---
+
+#so we will enter into the settings of github then go to colloborators and add people from there.
+
+#if someone wants to work on any other branch so create another one if it is not there otherwise go with existing branch---
+
+C:\dj3.30\webscraping_fetch_medicines>git branch webscraping_02
+
+C:\dj3.30\webscraping_fetch_medicines>git checkout webscraping_02
+Switched to branch 'webscraping_02'
+
+#now use any file of the project and push that file ---
+
+###never click compress and pull request block otherwise it will disorganize your branches like exchanged tha data and whenever we do it live then we will remove
+that block.
+
+###NOW WE WILL DO PULL IN PROJECT:
+
+FOR THAT CHANGE THE BRANCH---
+
+C:\dj3.30\webscraping_fetch_medicines>git checkout webscraping
+Switched to branch 'webscraping'
+
+
+C:\dj3.30\webscraping_fetch_medicines>git merge webscraping_02
+Already up to date.
+
+C:\dj3.30\webscraping_fetch_medicines>git merge origin webscraping_02 
+Already up to date.
+
+git pull
+
