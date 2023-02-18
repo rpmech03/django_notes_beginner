@@ -1,0 +1,14 @@
+###rest-restate transfer
+###api-application prog interfACE
+
+###DJANGO REST OR DJANGO REST FRAMEWORK:
+
+It is mainly use to create or construct rest api or restful web services by using django.As we know each and every rest api returns json(js obj notation) in response
+beacause json is a common concept through which we can communicate and share data between different type of programming languages. 
+we will use 4 types of methods---
+
+create/save   post
+show          get
+search         get
+delete         delete
+update         PUT

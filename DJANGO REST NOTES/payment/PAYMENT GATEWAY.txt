@@ -1,0 +1,223 @@
+https://scalereal.com/backend/2021/12/20/razorpay-payment-gateway-integration-with-django.html
+
+STEP 1 - Setting up Razorpay account
+
+Go to razorpay.com → Sign up → Go to the settings.
+
+Now click on the API Keys tab.
+
+Now, Click on Generate API keys button.
+
+This will generate a new key and show you the Key Idand Key Secretin a popup. Below these fields, you will see a link to Download Key Detail, click on that and let 
+the download complete.
+
+STEP 2 - Store the downloaded API keys in your settings.py file
+
+RAZORPAY_KEY_ID = YOUR_KEY_ID
+RAZORPAY_KEY_SECRET = YOUR_KEY_SECRET
+
+STEP 3 - Install Razorpay library
+
+pip install razorpay
+
+STEP 4 - Create the Order Schema
+
+from django.db import models
+from django.db.models.fields import CharField
+from django.utils.translation import gettext_lazy as _
+from .constants import PaymentStatus
+
+
+class Order(models.Model):
+    name = CharField(_("Customer Name"), max_length=254, blank=False, null=False)
+    amount = models.FloatField(_("Amount"), null=False, blank=False)
+    status = CharField(
+        _("Payment Status"),
+        default=PaymentStatus.PENDING,
+        max_length=254,
+        blank=False,
+        null=False,
+    )
+    provider_order_id = models.CharField(
+        _("Order ID"), max_length=40, null=False, blank=False
+    )
+    payment_id = models.CharField(
+        _("Payment ID"), max_length=36, null=False, blank=False
+    )
+    signature_id = models.CharField(
+        _("Signature ID"), max_length=128, null=False, blank=False
+    )
+
+    def __str__(self):
+        return f"{self.id}-{self.name}-{self.status}"
+
+We are importing PaymentStatus from constants.py file.
+
+class PaymentStatus:
+    SUCCESS = "Success"
+    FAILURE = "Failure"
+    PENDING = "Pending"
+
+STEP 5 - Creating Razorpay order
+First, let’s create the template to take input from the user.
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="col-6 mx-auto" style="margin-top:10%;">
+    <form action="{% url 'payment' %}" method='POST'>
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Name</label>
+          <input type="name" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Amount</label>
+          <input type="number" name="amount" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div>
+        <button type="submit" class="btn btn-primary">Pay Now</button>
+        </div>
+      </form>
+</div>
+{% endblock %}
+
+Now we will create an order_payment view to create order at the backend.
+And after that will create a Razorpay order using the API keys.
+We are creating Razorpay order using the Orders API. It is a server-to-server call that is secured by basic auth using your API keys.
+
+def home(request):
+    return render(request, "index.html")
+
+def order_payment(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+        razorpay_order = client.order.create(
+            {"amount": int(amount) * 100, "currency": "INR", "payment_capture": "1"}
+        )
+        order = Order.objects.create(
+            name=name, amount=amount, provider_order_id=payment_order["id"]
+        )
+        order.save()
+        return render(
+            request,
+            "payment.html",
+            {
+                "callback_url": "http://" + "127.0.0.1:8000" + "/razorpay/callback/",
+                "razorpay_key": RAZORPAY_KEY_ID,
+                "order": order,
+            },
+        )
+    return render(request, "payment.html")
+
+Let’s see the response object of Orders API that we are storing in razorpay_order
+
+{
+  "id": "order_IX37nLMvHfLsSO",
+  "entity": "order",
+  "amount": 789600,
+  "amount_paid": 0,
+  "amount_due": 789600,
+  "currency": "INR",
+  "receipt": null,
+  "offer_id": null,
+  "status": "created",
+  "attempts": 0,
+  "notes": [],
+  "created_at": 1639418188
+}
+
+After payment, users will be redirected to this URL on successful payment and failed payment.
+
+Let’s create a template to load Razorpay’s javascript code that will render the payment window.
+
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+    var options = {
+        key: "{{razorpay_key}}",
+        amount: "{{order.amount}}", 
+        currency: "INR",
+        name: "{{order.name}}",
+        description: "Test Transaction",
+        image: "https://example.com/your_logo",
+        order_id: "{{order.provider_order_id}}",
+        callback_url: "{{callback_url}}",
+        redirect: true,
+        prefill: {
+            "name": "Gaurav Kumar",
+            "email": "gaurav.kumar@example.com",
+            "contact": "9999999999"
+        },
+        notes: {
+            "address": "Razorpay Corporate Office"
+        },
+        theme: {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+    </script>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+</form>
+{% endblock %}
+
+
+The redirect parameter will determine whether to POST response to the event handler post-payment completion or redirect to the callback URL.
+a. When a redirect is true user is redirected to the specified callback URL in case of payment failure.
+b. When a redirect is false user is shown the Checkout popup to retry the payment.
+
+Setup urls.py file
+
+from django.urls import path
+from django.contrib import admin
+from . import views
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", views.home, name="home"),
+    path("payment/", views.order_payment, name="payment"),
+    path("callback/", views.callback, name="callback"),
+]
+
+
+STEP 6 - Making Payment
+As the Razorpay javascript loads, the user can make payments with test credentials.
+Handling the successful and failed payment is done with the help of the callback URL.
+
+@csrf_exempt
+def callback(request):
+    def verify_signature(response_data):
+        client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+        return client.utility.verify_payment_signature(response_data)
+
+    if "razorpay_signature" in request.POST:
+        payment_id = request.POST.get("razorpay_payment_id", "")
+        provider_order_id = request.POST.get("razorpay_order_id", "")
+        signature_id = request.POST.get("razorpay_signature", "")
+        order = Order.objects.get(provider_order_id=provider_order_id)
+        order.payment_id = payment_id
+        order.signature_id = signature_id
+        order.save()
+        if not verify_signature(request.POST):
+            order.status = PaymentStatus.SUCCESS
+            order.save()
+            return render(request, "callback.html", context={"status": order.status})
+        else:
+            order.status = PaymentStatus.FAILURE
+            order.save()
+            return render(request, "callback.html", context={"status": order.status})
+    else:
+        payment_id = json.loads(request.POST.get("error[metadata]")).get("payment_id")
+        provider_order_id = json.loads(request.POST.get("error[metadata]")).get(
+            "order_id"
+        )
+        order = Order.objects.get(provider_order_id=provider_order_id)
+        order.payment_id = payment_id
+        order.status = PaymentStatus.FAILURE
+        order.save()
+        return render(request, "callback.html", context={"status": order.status})

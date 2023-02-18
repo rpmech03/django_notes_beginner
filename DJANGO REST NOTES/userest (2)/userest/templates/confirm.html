@@ -1,0 +1,6 @@
+<form action="verify" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="votp" value="{{otp}}" />
+    ENTER OTP<input type="number" name="otp" />
+    <input type="submit" value="Verify Otp" />
+</form>

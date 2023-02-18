@@ -1,0 +1,6 @@
+REQUESTS:
+
+Request is a predefined module in django through which we will call rest api in django ,with the help of request we can call get, Post, Put and delete methods. 
+
+pip install requests
+

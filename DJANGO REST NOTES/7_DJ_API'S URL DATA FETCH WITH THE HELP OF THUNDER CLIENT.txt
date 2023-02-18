@@ -1,0 +1,8 @@
+ jo api live ki h use thunder client pr live krege..yha hm get method call krege to hme list of dict milegi jha se hme data traverse krke fetch krna h n django m 
+display krna h...kse krege???
+yha hm ek nya project bna rhe h userest ke nam se...n yha pr hmen jo rest api bnai h use fetch krege...isme sb whi hoga jo ek normal project m hota h bs yha hm api ko
+ fetch krege get method ke through to hme usek liye...
+sbse phle views.py m import requests kr lege n pip install requests b chla lenge...uske bad home fun define krege views.py m wha hm get method call krwayege by 
+requests.get("") n inside of that string we will pass api's url n will store into data n if we will print that data then we will get
+200 n in this we have to convert it into json means list of dict..so we will use print(data.json())..then we get finally list of dict...summarise...api ke data pr 
+json method call kr do apko list of dict or json mil jayega...n iske bad hm ise index.html pr phucha dege... 

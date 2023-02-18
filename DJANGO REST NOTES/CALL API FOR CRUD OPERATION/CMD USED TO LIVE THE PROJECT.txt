@@ -1,0 +1,42 @@
+git account create[git signup]
+git bash install
+heroku cli install
+heroku signup
+
+opern terminal:-
+pip install gunicorn
+(Gunicorn serves as an interface to your application, translating client requests from HTTP 
+to Python calls that your application can process. Inside of this file, a function called application was defined, which is used to communicate with the application.)
+pip install whitenoise
+(You can disable Django's static file handling and allow WhiteNoise to take over simply by passing the --nostatic option to
+ the runserver command, but you need to remember to add this option every time you call runserver . An easier way is to edit your settings.py file and add whitenoise.)
+pip install dj-database-url
+
+create a requirement.txt usine following terminal command:-
+pip freeze > requirements.txt
+
+create a Procfile:-
+	web: gunicorn project_name.wsgi --log-file -
+
+settings.py:-
+	ALLOWED_HOSTS = ['*']
+	MIDDLEWARE = [
+	    'django.middleware.security.SecurityMiddleware',
+	    'whitenoise.middleware.WhiteNoiseMiddleware',
+	]
+
+	import dj_database_url
+	DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+
+login your heroku account ------>create new app---->app_name-----(click)------create app
+Terminal:-
+heroku login
+heroku git:clone -a py11deployee 
+git add .
+git commit -am "make it better"
+heroku config:set DISABLE_COLLECTSTATIC=1
+git push heroku master
+
+heroku run python manage.py migrate
+heroku run python manage.py createsuperuser

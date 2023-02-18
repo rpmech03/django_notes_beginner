@@ -1,0 +1,45 @@
+first search in browser ---less secure apps---where click on "on" button
+
+
+
+###SETTINGS.PY :
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'someshh09@gmail.com'
+EMAIL_HOST_PASSWORD = '9977374809'
+
+###VIEWS.PY :
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.shortcuts import redirect, render
+
+def sendmail(request):
+    if request.method=='POST':
+         subject = request.POST['sub']
+         message = request.POST['msg']
+         email_from = settings.EMAIL_HOST_USER
+         email = request.POST['email']
+         recipient_list = [email, ]
+         send_mail( subject,message,email_from,recipient_list )
+         return redirect("/")
+    else:
+        return render(request,'sendmail.html')
+
+###URLS.PY :
+
+path('sendmail', views.sendmail,name="sendmail"),
+
+
+###sendmail.html
+
+<form action="" method="post">
+    {% csrf_token %}
+    SUBJECT<input type="text" name="sub" /><br>
+    MESSAGE<input type="text" name="msg" /><br>
+    TO<input type="email" name="email" /><br>
+    <input type="submit" value="send mail" />
+</form>

@@ -1,0 +1,29 @@
+###VIEWSET:
+
+Mainly use to define views of data, we can construct a viewset by inherit our class to ModelViewSet of viewset module and insert the viewset class. We will define
+two parameters 1st one is queryset and 2nd one is serializar_class.
+
+from rest_framework import viewsets
+from .empserializer import EmpSerializer
+from .models import Emp
+class EmpViewSet(viewsets.ModelViewSet):
+    queryset=Emp.objects.all()
+    serializer_class=EmpSerializer
+
+###ROUTING:
+
+We will use router object of rest framework through which we can define rest api routing,We can create a default router and we can register rutch for viewsets.
+
+###SERIALIZATION:
+
+Django's serialization framework provides a mechanism for “translating” Django models into other formats. 
+Usually these other formats will be text-based and used for sending Django data over a wire, but it's possible for a serializer to handle any format 
+(text-based or not).
+
+from dataclasses import fields
+from rest_framework import serializers
+from .models import Emp
+class EmpSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Emp
+        fields=['id','name','email','address','sal']
